@@ -7,3 +7,5 @@ test git branch  master
 测试 git branch
 
 git --no-ff
+
+git --no-ff two
