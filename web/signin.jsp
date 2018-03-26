@@ -8,13 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta content="text/html" charset="UTF-8" http-equiv="content-type">
     <title>Sign in</title>
 </head>
 <body>
-<form method="post" action="">
-    用户名：<input type="text" id="userName" name="userName" placeholder="请输入用户名"/>
-    密码: <input type="password" id="password" name="password" placeholder="请输入密码"/>
+<form method="post" action="<%=request.getContextPath()%>/signInServlet">
+    用户名：<input type="text" id="userName" name="userName" placeholder="请输入用户名"/><br/>
+    密码: <input type="password" id="password" name="password" placeholder="请输入密码"/><br/>
     <input type="submit" value="Sign in"/>
 </form>
 </body>
+
 </html>

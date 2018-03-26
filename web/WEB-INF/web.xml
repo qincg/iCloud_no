@@ -7,6 +7,7 @@
     <welcome-file-list>
         <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
+    <!--用户注册servlet-->
     <servlet>
         <servlet-name>signUpServlet</servlet-name>
         <servlet-class>qcg.icloud.servlet.UserSignUpServlet</servlet-class>
@@ -14,5 +15,14 @@
     <servlet-mapping>
         <servlet-name>signUpServlet</servlet-name>
         <url-pattern>/signUpServlet</url-pattern>
+    </servlet-mapping>
+    <!--用户登录servlet-->
+    <servlet>
+        <servlet-name>signInServlet</servlet-name>
+        <servlet-class>qcg.icloud.servlet.UserSignInServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>signInServlet</servlet-name>
+        <url-pattern>/signInServlet</url-pattern>
     </servlet-mapping>
 </web-app>

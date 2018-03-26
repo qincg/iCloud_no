@@ -16,7 +16,7 @@
   </head>
   <body>
   <a href="index.jsp">首页</a>
-  <a >登录</a>
-  <a>注册</a>
+  <a href="signin.jsp">登录</a>
+  <a href="signup.jsp">注册</a>
   </body>
 </html>

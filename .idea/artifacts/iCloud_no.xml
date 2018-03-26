@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="iCloud_no:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/iCloud_no_war_exploded</output-path>
+  <artifact type="exploded-war" name="iCloud_no">
+    <output-path>D:/out/iCloud_no</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="iCloud_no/web/Web" />
       <element id="directory" name="WEB-INF">
