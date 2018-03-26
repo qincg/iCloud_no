@@ -6,11 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 <html>
+
   <head>
-    <title>$Title$</title>
+    <meta charset="UTF-8" content="text/html" http-equiv="content-type">
+    <title>欢迎进入iCloud</title>
   </head>
   <body>
-  $END$
+  <a href="index.jsp">首页</a>
+  <a >登录</a>
+  <a>注册</a>
   </body>
 </html>
