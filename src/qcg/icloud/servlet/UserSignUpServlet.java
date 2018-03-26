@@ -58,7 +58,7 @@ public class UserSignUpServlet extends HttpServlet {
         }finally {
             DbUtils.closeQuietly(connection);
         }
-        request.getRequestDispatcher("/jsp/welcome.jsp").forward(request,response);
+        request.getRequestDispatcher("/jsp/myfiles.jsp").forward(request,response);
     }
 
 }

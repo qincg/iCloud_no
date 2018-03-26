@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="icloud@localhost" uuid="13faf2c7-ae09-4d87-b3ed-d8c13725cf5e">
+    <data-source source="LOCAL" name="iCloud@localhost" uuid="b5aaaddc-7e66-4cc4-814b-83d477ba641c">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/icloud</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/iCloud</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

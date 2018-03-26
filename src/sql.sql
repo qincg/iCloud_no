@@ -1,3 +1,6 @@
+create database iCloud;
+use iCloud;
+
 -- 用于存放用户数据
 create table user(
   id int primary key auto_increment,

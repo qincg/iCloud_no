@@ -12,8 +12,9 @@
     <title>我的文件</title>
 </head>
 <body>
-<form action="" method="post" enctype="multipart/form-data">
+<form action="<%=request.getContextPath()%>/fileUploadServlet" method="post" enctype="multipart/form-data">
     上传文件：<input type="file" id="uploadFile" name="uploadFile"/><br/>
+    测试:<input type="text" id="test" name="test" value="111"/><br/>
     <input type="submit" value="upload"/>
 </form>
 <table id="fileTable">
