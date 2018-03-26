@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -44,6 +45,11 @@ public class UserSignUpServlet extends HttpServlet {
                     qr.update(connection, insertSql, userName, password);
                     HttpSession session = request.getSession();
                     session.setAttribute("userName", userName);
+                    //为此用户新建一个文件夹
+                    File file = new File(request.getSession().getServletContext().getRealPath("") + File.separator + "userFile" + File.separator + userName);
+                    if (!file.exists()){
+                        file.mkdirs();
+                    }
                 }
             }
 
