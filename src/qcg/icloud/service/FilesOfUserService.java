@@ -12,6 +12,7 @@ import java.sql.Connection;
  * @Date: 2018/3/29 17:50
  */
 public class FilesOfUserService {
+    private FilesOfUserDao filesOfUserDao = new FilesOfUserDao();
 
     /**
      *查出file_user表中是否有此记录
@@ -24,10 +25,13 @@ public class FilesOfUserService {
         FileDao fileDao = new FileDao();
         int fileId = fileDao.isHave(fileName,fileMD5);
         if (fileId != 0){
-            FilesOfUserDao filesOfUserDao = new FilesOfUserDao();
             return filesOfUserDao.isHave(userName,fileId);
         }
 
         return false;
+    }
+
+    public boolean addFileUser(String userName,int fileId){
+        return filesOfUserDao.addUserFile(userName,fileId);
     }
 }

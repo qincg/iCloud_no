@@ -1,11 +1,11 @@
 package qcg.icloud.servlet;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import qcg.icloud.dao.FileDao;
+import qcg.icloud.service.FileService;
+import qcg.icloud.service.FilesOfUserService;
 import qcg.icloud.util.FileUtil;
 
 import javax.servlet.ServletException;
@@ -61,17 +61,36 @@ public class FileUploadServlet extends HttpServlet {
                             String fileName = new File(item.getName()).getName();
                             //文件存放路径
                             String filePath = path + File.separator + fileName;
+                            //文件大小
+                            long fileSize = item.getSize();
                             //创建文件
                             File file = new File(filePath);
                             //获取文件md5
                             String fileMD5 = FileUtil.getFileMd5(file);
-                            //判断文件是否存在
-                            FileDao fileDao = new FileDao();
+                            //先判断是否重复上传,如果有，表示此用户已经上传过了;然后判断file表中是否有此文件，如果没有则add
+                            FilesOfUserService filesOfUserService = new FilesOfUserService();
+                            if(!filesOfUserService.isHave(userName,fileName,fileMD5)){
+                                //没有此文件
+                                FileService fileService = new FileService();
+                                int result = fileService.isHave(fileName,fileMD5);
+                                if (result == 0){
+                                    //表示file表没有此文件,先保存到服务器,然后插入file表
+                                    item.write(file);
+                                    int fileId = fileService.addFileRetId(fileName,fileMD5,filePath,fileSize);
+                                    if (fileId != 0){
+                                        //新增file成功,加入到file_user表
+                                        filesOfUserService.addFileUser(userName,fileId);
+                                    }
+                                }else {
+                                    //file表已有此文件,result为fileid
+                                    filesOfUserService.addFileUser(userName,result);
+                                }
 
+                            }
 
-                            //保存到硬盘
-                            item.write(file);
                         }
+                        request.getRequestDispatcher("/filesOfUserServlet").forward(request,response);
+
                     }
 
                 }
@@ -82,7 +101,6 @@ public class FileUploadServlet extends HttpServlet {
             }
         }
 
-        request.getRequestDispatcher("/jsp/myfiles.jsp").forward(request,response);
     }
 
 }

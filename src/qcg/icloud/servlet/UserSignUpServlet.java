@@ -33,7 +33,7 @@ public class UserSignUpServlet extends HttpServlet {
             session.setAttribute("userName", userName);
             //为此用户新建一个文件夹
             FileUtil.createUserFilePath(userName);
-            request.getRequestDispatcher("/jsp/myfiles.jsp").forward(request, response);
+            request.getRequestDispatcher("/filesOfUserServlet").forward(request, response);
         }
     }
 

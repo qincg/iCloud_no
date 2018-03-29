@@ -9,6 +9,7 @@ import qcg.icloud.pojo.User;
  * @Date: 2018/3/29 15:14
  */
 public class UserService {
+    private User user = new User();
 
     /**
      * 增加用户，先判断是否有此用户
@@ -17,7 +18,7 @@ public class UserService {
      * @return
      */
     public boolean addUser(String userName,String passWord){
-        User user = new User(userName);
+        user.setUserName(userName);
         user.setPassWord(passWord);
         UserDao userDao = new UserDao();
         boolean isHave = userDao.isHave(user);
@@ -37,7 +38,7 @@ public class UserService {
      * @return
      */
     public boolean checkSignIn(String userName,String passWord){
-        User user = new User(userName);
+        user.setUserName(userName);
         user.setPassWord(passWord);
         UserDao userDao = new UserDao();
         if (userDao.checkSignIn(user)){

@@ -23,7 +23,7 @@ public class FilesOfUserDao {
      * @param fileId
      * @return
      */
-    public boolean addUserFile(String userName, String fileId){
+    public boolean addUserFile(String userName, int fileId){
         Connection connection = JDBCUtil.getConn();
         String sql = "insert into file_user(fileId,userName) valuse(?,?)";
         QueryRunner qr = new QueryRunner();

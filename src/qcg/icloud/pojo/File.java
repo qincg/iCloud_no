@@ -11,10 +11,6 @@ public class File implements Serializable {
      * 文件大小
      */
     private long fileSize;
-    /**
-     * 文件拥有者
-     */
-    private int userId;
 
     /**
      * 文件MD5
@@ -61,11 +57,4 @@ public class File implements Serializable {
         this.fileSize = fileSize;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 }
