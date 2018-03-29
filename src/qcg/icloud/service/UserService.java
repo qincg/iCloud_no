@@ -29,6 +29,13 @@ public class UserService {
         }
         return false;
     }
+
+    /**
+     * 核对用户是否已经注册过
+     * @param userName
+     * @param passWord
+     * @return
+     */
     public boolean checkSignIn(String userName,String passWord){
         User user = new User(userName);
         user.setPassWord(passWord);
