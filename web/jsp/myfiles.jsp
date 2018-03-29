@@ -12,6 +12,7 @@
     <title>我的文件</title>
 </head>
 <body>
+欢迎<b><%=request.getSession().getAttribute("userName")%></b>!
 <form action="<%=request.getContextPath()%>/fileUploadServlet" method="post" enctype="multipart/form-data">
     上传文件：<input type="file" id="uploadFile" name="uploadFile"/><br/>
     测试:<input type="text" id="test" name="test" value="111"/><br/>

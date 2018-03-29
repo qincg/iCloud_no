@@ -8,7 +8,8 @@ public class JDBCUtil {
     private final static String URL = "jdbc:mysql://localhost:3306/iCloud";
     private final static String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private final static String USER = "root";
-    private final static String PASSWORD = "root";
+   // private final static String PASSWORD = "root";
+    private final static String PASSWORD = "myoa888";
 
     public static Connection getConn(){
         Connection conn = null;

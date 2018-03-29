@@ -8,7 +8,7 @@ create table user(
   password varchar(20)
 );
 -- 用于存放文件数据
-create table files(
+create table file(
   id int primary key auto_increment,
   fileName varchar(100),
   fileMD5 varchar(500),

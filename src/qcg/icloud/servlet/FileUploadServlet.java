@@ -5,15 +5,15 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import qcg.icloud.dao.FileDao;
+import qcg.icloud.util.FileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -29,9 +29,10 @@ public class FileUploadServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("userName");
+        //String userName = request.getParameter("userName");
+        String userName = (String)request.getSession().getAttribute("userName");
         //上传文件存放的路径
-        String path = request.getSession().getServletContext().getRealPath("") + File.separator + "userFile" + File.separator + userName;
+        String path = FileUtil.createUserFilePath(userName);
         //创建磁盘条目工厂
         DiskFileItemFactory dfi = new DiskFileItemFactory();
         //设置内存最大值，超过则存储在临时目录
@@ -62,6 +63,12 @@ public class FileUploadServlet extends HttpServlet {
                             String filePath = path + File.separator + fileName;
                             //创建文件
                             File file = new File(filePath);
+                            //获取文件md5
+                            String fileMD5 = FileUtil.getFileMd5(file);
+                            //判断文件是否存在
+                            FileDao fileDao = new FileDao();
+
+
                             //保存到硬盘
                             item.write(file);
                         }

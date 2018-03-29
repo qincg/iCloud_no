@@ -21,7 +21,8 @@ public class FilesOfUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("userName");
+        //String userName = request.getParameter("userName");
+        String userName = (String)request.getSession().getAttribute("userName");
         Connection connection = JDBCUtil.getConn();
         String querySql = "select * from file_user where userName = ?";
         QueryRunner qr = new QueryRunner();

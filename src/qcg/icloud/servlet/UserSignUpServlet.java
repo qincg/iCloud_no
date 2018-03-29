@@ -1,18 +1,14 @@
 package qcg.icloud.servlet;
 
-import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.dbutils.QueryRunner;
-import qcg.icloud.util.JDBCUtil;
+import qcg.icloud.service.UserService;
+import qcg.icloud.util.FileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * @author qcg
@@ -28,37 +24,17 @@ public class UserSignUpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        Connection connection = JDBCUtil.getConn();
-        QueryRunner qr = new QueryRunner();
-        String insertSql = "insert into user(userName,password) values(?,?)";
-        String querySql = "select * from user where userName = ?";
         if (userName == null || password == null){
             return;
         }
-        try{
-            if (connection != null) {
-                //保证userName唯一性，所以先查询是否有此记录
-                int queryResult = qr.execute(connection,querySql,userName);
-                if (queryResult > 0 ){
-                    return;
-                }else {
-                    qr.update(connection, insertSql, userName, password);
-                    HttpSession session = request.getSession();
-                    session.setAttribute("userName", userName);
-                    //为此用户新建一个文件夹
-                    File file = new File(request.getSession().getServletContext().getRealPath("") + File.separator + "userFile" + File.separator + userName);
-                    if (!file.exists()){
-                        file.mkdirs();
-                    }
-                }
-            }
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
-            DbUtils.closeQuietly(connection);
+        UserService userService = new UserService();
+        if(userService.addUser(userName,password)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("userName", userName);
+            //为此用户新建一个文件夹
+            FileUtil.createUserFilePath(userName);
+            request.getRequestDispatcher("/jsp/myfiles.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("/jsp/myfiles.jsp").forward(request,response);
     }
 
 }
