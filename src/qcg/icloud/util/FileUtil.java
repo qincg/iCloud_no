@@ -40,6 +40,7 @@ public class FileUtil {
      */
     public static String getFileMd5(File file){
         String fileMD5 = "";
+        //此处不需要判断文件是否存在，因为尚未写入
         if (!file.exists() || !file.isFile()){
             return "";
         }

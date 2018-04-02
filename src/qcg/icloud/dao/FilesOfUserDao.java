@@ -26,7 +26,7 @@ public class FilesOfUserDao {
      */
     public boolean addUserFile(String userName, int fileId){
         Connection connection = JDBCUtil.getConn();
-        String sql = "insert into file_user(fileId,userName) valuse(?,?)";
+        String sql = "insert into file_user(fileId,userName) values(?,?)";
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{

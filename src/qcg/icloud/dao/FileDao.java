@@ -2,6 +2,7 @@ package qcg.icloud.dao;
 
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import qcg.icloud.pojo.File;
 import qcg.icloud.util.JDBCUtil;
@@ -55,7 +56,7 @@ public class FileDao {
             try{
                 int result = qr.update(connection,sql,file.getFileName(),file.getFileMD5(),file.getFilePath(),file.getFileSize());
                 if (result == 1){
-                    return qr.execute(sqlId);
+                    return Integer.parseInt(qr.query(connection,sqlId,new ArrayHandler())[0].toString());
                 }
             }catch (SQLException e){
                 e.printStackTrace();
@@ -142,7 +143,7 @@ public class FileDao {
             try{
                 List<Object[]> list =  qr.query(connection,sql,new ArrayListHandler(),fileName,fileMD5);
                 if (list.size() > 0){
-                    fileId = Integer.parseInt((String)list.get(0)[0]);
+                    fileId = Integer.parseInt(list.get(0)[0].toString());
                     return fileId;
                 }else if (list.size() > 1){
                     System.out.println(" 代码有问题，相同filename和filemd5出现了两个！！！ ");

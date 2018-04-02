@@ -39,7 +39,7 @@ public class FileUploadServlet extends HttpServlet {
         dfi.setSizeThreshold(1024*1024*5);
         //设置临时文件目录
         dfi.setRepository(new File(System.getProperty("java.io.tmpdir")));
-        System.out.println("System.getProperty(\"java.io.tepdir\") = " + System.getProperty("java.io.tmpdir"));
+        //System.out.println("System.getProperty(\"java.io.tepdir\") = " + System.getProperty("java.io.tmpdir"));
         ServletFileUpload sfu = new ServletFileUpload(dfi);
 
         //设置总文件最大值 50M
@@ -54,8 +54,8 @@ public class FileUploadServlet extends HttpServlet {
                 List<FileItem> list = sfu.parseRequest(request);
                 if (list != null && list.size() > 0) {
                     for (FileItem item : list) {
-                        System.out.println("item.getFieldName() = " + item.getFieldName() +"---"+item.isFormField());
-                        System.out.println("item = " + item.getName());
+                        //System.out.println("item.getFieldName() = " + item.getFieldName() +"---"+item.isFormField());
+                        //System.out.println("item = " + item.getName());
                         if (!item.isFormField()){
                             //获取文件名称
                             String fileName = new File(item.getName()).getName();
@@ -65,6 +65,10 @@ public class FileUploadServlet extends HttpServlet {
                             long fileSize = item.getSize();
                             //创建文件
                             File file = new File(filePath);
+                            //此处注意下：由于需要计算文件的md5，所以要先把文件写入到服务器，如果后续文件重复，再把该文件删除
+                            //TODO 可能存在文件名重复的问题,此处比较麻烦，暂不考虑
+                            //还有种解决办法：在前台计算md5
+                            item.write(file);
                             //获取文件md5
                             String fileMD5 = FileUtil.getFileMd5(file);
                             //先判断是否重复上传,如果有，表示此用户已经上传过了;然后判断file表中是否有此文件，如果没有则add
@@ -75,7 +79,7 @@ public class FileUploadServlet extends HttpServlet {
                                 int result = fileService.isHave(fileName,fileMD5);
                                 if (result == 0){
                                     //表示file表没有此文件,先保存到服务器,然后插入file表
-                                    item.write(file);
+                                    //item.write(file);
                                     int fileId = fileService.addFileRetId(fileName,fileMD5,filePath,fileSize);
                                     if (fileId != 0){
                                         //新增file成功,加入到file_user表
