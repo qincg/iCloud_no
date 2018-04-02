@@ -20,8 +20,10 @@ public class FilesOfUserServlet extends HttpServlet {
         //String userName = request.getParameter("userName");
         String userName = (String)request.getSession().getAttribute("userName");
         FilesOfUserDao filesOfUserDao = new FilesOfUserDao();
-        List<Object[]> list = filesOfUserDao.queryFiles(userName);
-        int count = filesOfUserDao.fileCount(userName);
-        request.getRequestDispatcher("/jsp/myfiles,jsp").forward(request,response);
+        List<Object[]> fileList = filesOfUserDao.queryFiles(userName);
+        Integer fileCount = filesOfUserDao.fileCount(userName);
+        request.setAttribute("fileList",fileList);
+        request.setAttribute("fileCount",fileCount);
+        request.getRequestDispatcher("/jsp/myfiles.jsp").forward(request,response);
     }
 }

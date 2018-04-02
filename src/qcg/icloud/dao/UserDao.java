@@ -126,7 +126,7 @@ public class UserDao {
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try {
-                Object[] objects = qr.query(connection, sql, new ArrayHandler(), user.getUserName());
+                Object[] objects = qr.query(connection, sql, new ArrayHandler(), user.getUserName(),user.getPassWord());
                 if (objects.length > 0) {
                     return true;
                 }

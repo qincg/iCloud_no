@@ -2,6 +2,7 @@ package qcg.icloud.dao;
 
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import qcg.icloud.util.JDBCUtil;
 
@@ -100,7 +101,8 @@ public class FilesOfUserDao {
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try {
-                result = qr.execute(sql, userName);
+                Object[] objects = qr.query(connection,sql,new ArrayHandler(),userName);
+                result = Integer.parseInt(objects[0].toString());
             }catch (SQLException e){
                 e.printStackTrace();
             }finally {

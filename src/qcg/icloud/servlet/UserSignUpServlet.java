@@ -2,6 +2,7 @@ package qcg.icloud.servlet;
 
 import qcg.icloud.service.UserService;
 import qcg.icloud.util.FileUtil;
+import qcg.icloud.util.StrUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,7 @@ public class UserSignUpServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("userName");
+        String userName = StrUtil.isoToUFT8(request.getParameter("userName"));
         String password = request.getParameter("password");
         if (userName == null || password == null){
             return;
@@ -33,7 +34,9 @@ public class UserSignUpServlet extends HttpServlet {
             session.setAttribute("userName", userName);
             //为此用户新建一个文件夹
             FileUtil.createUserFilePath(userName);
-            request.getRequestDispatcher("/filesOfUserServlet").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/filesOfUserServlet");
+        }else {
+            response.sendRedirect("index.jsp");
         }
     }
 

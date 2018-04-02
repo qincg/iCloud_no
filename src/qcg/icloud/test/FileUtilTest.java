@@ -2,6 +2,7 @@ package qcg.icloud.test;
 
 import qcg.icloud.util.FileUtil;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -11,6 +12,12 @@ import java.io.IOException;
  */
 public class FileUtilTest {
     public static void main(String[] args) throws IOException {
-        
+        String path = FileUtilTest.class.getClassLoader().getResource("").getPath();
+        System.out.println(File.separator);
+        int lastIndex = path.lastIndexOf("web");
+        System.out.println("lastIndex = " + lastIndex);
+        System.out.println("path = " + path.length());
+
+        System.out.println(path.substring(0,lastIndex+3));
     }
 }

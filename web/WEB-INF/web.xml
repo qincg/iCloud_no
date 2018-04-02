@@ -34,4 +34,13 @@
         <servlet-name>fileUploadServlet</servlet-name>
         <url-pattern>/fileUploadServlet</url-pattern>
     </servlet-mapping>
+    <!--登录后展现servlet-->
+    <servlet>
+        <servlet-name>filesOfUserServlet</servlet-name>
+        <servlet-class>qcg.icloud.servlet.FilesOfUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>filesOfUserServlet</servlet-name>
+        <url-pattern>/filesOfUserServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

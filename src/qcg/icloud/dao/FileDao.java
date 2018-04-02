@@ -110,7 +110,7 @@ public class FileDao {
      * 查出文件数量
      * @return
      */
-    public int fileCount(){
+    public Integer fileCount(){
         int result = 0;
         Connection connection = JDBCUtil.getConn();
         String sql = "select count(*) from file";
@@ -136,7 +136,7 @@ public class FileDao {
     public int isHave(String fileName,String fileMD5){
         int fileId = 0;
         Connection connection = JDBCUtil.getConn();
-        String sql = "select fileId from file where fileName = ? and fileMD5 = ?";
+        String sql = "select id from file where fileName = ? and fileMD5 = ?";
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{

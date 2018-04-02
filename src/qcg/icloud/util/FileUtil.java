@@ -14,7 +14,10 @@ import java.io.IOException;
  */
 public class FileUtil {
     private static final String PATH = "userFile";
-    private static final String CONTEXT_PATH = System.getProperty("user.dir") + File.separator + PATH + File.separator;
+    /**
+     * 格式：X：iCloud_no/web/WEB-INF/classes
+     */
+    private static final String CONTEXT_PATH = FileUtil.class.getClassLoader().getResource("").getPath();
 
     /**
      * 创建用户的文件夹路径
@@ -22,7 +25,7 @@ public class FileUtil {
      * @return 返回创建的路径
      */
     public static String createUserFilePath(String userName) {
-        String path = CONTEXT_PATH+ userName;
+        String path = CONTEXT_PATH.substring(0,CONTEXT_PATH.lastIndexOf("WEB-INF")) + "userFile" + File.separator + userName;
         File file = new File(path);
         if (!file.exists()){
             file.mkdirs();
@@ -46,5 +49,25 @@ public class FileUtil {
             e.printStackTrace();
         }
         return fileMD5;
+    }
+
+    /**
+     * 对文件的长度转换，MB,GB
+     * @param fileSize
+     * @return
+     */
+    public static String sizeType(long fileSize){
+        String sizeType = "";
+        if (fileSize >= 1024 && fileSize < 1024*1024){
+            //单位为kb
+            sizeType =(fileSize/1024 + fileSize%1024) + "KB" ;
+        }else if(fileSize >= 1024 * 1024 && fileSize < 1024 * 1024 * 1024){
+            sizeType = (fileSize/1024/1024 + fileSize%(1024*1024)) + "MB";
+        }else if (fileSize >= 1024*1024*1024){
+            sizeType = (fileSize/1024/1024/1024 + fileSize%(1024*1024*1024)) + "GB";
+        }else {
+            sizeType = fileSize + "BT";
+        }
+        return sizeType;
     }
 }

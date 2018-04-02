@@ -89,7 +89,7 @@ public class FileUploadServlet extends HttpServlet {
                             }
 
                         }
-                        request.getRequestDispatcher("/filesOfUserServlet").forward(request,response);
+                        response.sendRedirect(request.getContextPath() + "/filesOfUserServlet");
 
                     }
 
