@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * @Author: qcg
@@ -59,6 +60,8 @@ public class FileUtil {
      */
     public static String sizeType(long fileSize){
         String sizeType = "";
+        //保留两位小数
+        BigDecimal bigDecimal = new BigDecimal();
         if (fileSize >= 1024 && fileSize < 1024*1024){
             //单位为kb
             sizeType =(fileSize/1024 + fileSize%1024) + "KB" ;

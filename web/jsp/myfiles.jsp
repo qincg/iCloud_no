@@ -33,14 +33,13 @@
         </tr>
     <%
         if (fileList.size() != 0){
-            for (int i = 0;i <= fileList.size();i ++) {
+            for (int i = 0;i < fileList.size();i ++) {
     %>
         <tr>
             <td><%=i+1%></td>
-            <td><%=fileList.get(i)[1]%></td>
             <%
                 long size = Long.parseLong((String)fileList.get(i)[2]);
-                String fileName = (String)fileList.get(i)[3];
+                String fileName = (String)fileList.get(i)[1];
             %>
             <td><%=fileName%></td>
             <td><%=FileUtil.sizeType(size)%></td>
