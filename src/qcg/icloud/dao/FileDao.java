@@ -68,19 +68,18 @@ public class FileDao {
     }
 
     /**
-     * 用MD5和文件名称校验唯一性
-     * 根据MD5值和文件名称删除文件
+     * 用MD5校验唯一性
+     * 根据MD5值删除文件 暂时未用上
      * @param fileMD5
-     * @param fileName
      * @return
      */
-    public boolean delFile(String fileMD5,String fileName){
+    public boolean delFile(String fileMD5){
         Connection connection = JDBCUtil.getConn();
-        String sql = "delete from file where fileMD5 = ? and fileName = ?";
+        String sql = "delete from file where fileMD5 = ?";
         QueryRunner qr = new QueryRunner();
         if (connection != null){
             try{
-                int result = qr.update(connection,sql,fileMD5,fileName);
+                int result = qr.update(connection,sql,fileMD5);
                 if (result == 1){
                     return true;
                 }else if (result > 1){
@@ -129,19 +128,18 @@ public class FileDao {
     }
 
     /**
-     * file表示否已有此文件，根据filename和fileMD5校验文件唯一性
-     * @param fileName
+     * file表示否已有此文件，根据fileMD5校验文件唯一性
      * @param fileMD5
      * @return 返回存在文件的id值
      */
-    public int isHave(String fileName,String fileMD5){
+    public int isHave(String fileMD5){
         int fileId = 0;
         Connection connection = JDBCUtil.getConn();
-        String sql = "select id from file where fileName = ? and fileMD5 = ?";
+        String sql = "select id from file where fileMD5 = ?";
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{
-                List<Object[]> list =  qr.query(connection,sql,new ArrayListHandler(),fileName,fileMD5);
+                List<Object[]> list =  qr.query(connection,sql,new ArrayListHandler(),fileMD5);
                 if (list.size() > 0){
                     fileId = Integer.parseInt(list.get(0)[0].toString());
                     return fileId;

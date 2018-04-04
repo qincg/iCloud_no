@@ -60,17 +60,13 @@ public class FileUtil {
      */
     public static String sizeType(long fileSize){
         String sizeType = "";
-        //保留两位小数
-        BigDecimal bigDecimal = new BigDecimal();
         if (fileSize >= 1024 && fileSize < 1024*1024){
             //单位为kb
-            sizeType =(fileSize/1024 + fileSize%1024) + "KB" ;
+            sizeType =StrUtil.decimal(String.valueOf(fileSize),"1024",2) + "KB" ;
         }else if(fileSize >= 1024 * 1024 && fileSize < 1024 * 1024 * 1024){
-            sizeType = (fileSize/1024/1024 + fileSize%(1024*1024)) + "MB";
+            sizeType = StrUtil.decimal(String.valueOf(fileSize),String.valueOf(1024*1024),2) + "MB";
         }else if (fileSize >= 1024*1024*1024){
-            sizeType = (fileSize/1024/1024/1024 + fileSize%(1024*1024*1024)) + "GB";
-        }else {
-            sizeType = fileSize + "BT";
+            sizeType = StrUtil.decimal(String.valueOf(fileSize),String.valueOf(1024*1024*1024),2) + "GB";
         }
         return sizeType;
     }

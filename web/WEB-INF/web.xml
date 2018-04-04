@@ -20,7 +20,7 @@
         <filter-class>qcg.icloud.filter.LoginFilter</filter-class>
         <init-param>
             <param-name>checkedServlet</param-name>
-            <param-value>/fileUploadServlet,/filesOfUserServlet</param-value>
+            <param-value>/fileUploadServlet,/filesOfUserServlet,/jsp/myfiles.jsp</param-value>
         </init-param>
     </filter>
     <filter-mapping>

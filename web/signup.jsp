@@ -20,6 +20,7 @@
     <br/>
 
     <input type="submit" value="Sign up"/>
+    <input type="button" value="Sign in" onclick="window.location.href='<%=request.getContextPath()%>/signin.jsp'">
 </form>
 </body>
 <script>

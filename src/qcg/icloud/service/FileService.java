@@ -20,7 +20,7 @@ public class FileService {
         file.setFileMD5(fileMD5);
         file.setFilePath(filePath);
         file.setFileSize(fileSize);
-        int result = fileDao.isHave(fileName,fileMD5);
+        int result = fileDao.isHave(fileMD5);
         if (result == 0){
             return fileDao.addFile(file);
         }
@@ -41,7 +41,7 @@ public class FileService {
         file.setFileMD5(fileMD5);
         file.setFilePath(filePath);
         file.setFileSize(fileSize);
-        int result = fileDao.isHave(fileName,fileMD5);
+        int result = fileDao.isHave(fileMD5);
         if (result == 0){
             return fileDao.addFileRetId(file);
         }
@@ -50,11 +50,10 @@ public class FileService {
 
     /**
      * file表是否含有此记录
-     * @param fileName
      * @param fileMD5
      * @return
      */
-    public int isHave(String fileName,String fileMD5){
-        return fileDao.isHave(fileName,fileMD5);
+    public int isHave(String fileMD5){
+        return fileDao.isHave(fileMD5);
     }
 }

@@ -24,13 +24,13 @@ public class FilesOfUserDao {
      * @param fileId
      * @return
      */
-    public boolean addUserFile(String userName, int fileId){
+    public boolean addUserFile(String userName, int fileId,String fileName){
         Connection connection = JDBCUtil.getConn();
-        String sql = "insert into file_user(fileId,userName) values(?,?)";
+        String sql = "insert into file_user(fileId,userName,fileName) values(?,?)";
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{
-                int result = qr.update(connection,sql,fileId,userName);
+                int result = qr.update(connection,sql,fileId,userName,fileName);
                 if (result == 1){
                     return true;
                 }else if (result > 1){
@@ -120,7 +120,7 @@ public class FilesOfUserDao {
     public List<Object[]> queryFiles(String userName){
         List<Object[]> list = new ArrayList<Object[]>();
         Connection connection = JDBCUtil.getConn();
-        String sql = "select f.id,f.fileName,f.fileSize from file f,file_user fu where fu.fileId = f.id and fu.userName = ?";
+        String sql = "select f.id,fu.fileName,f.fileSize from file f,file_user fu where fu.fileId = f.id and fu.userName = ?";
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{

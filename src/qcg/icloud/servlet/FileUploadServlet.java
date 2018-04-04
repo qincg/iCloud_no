@@ -57,37 +57,42 @@ public class FileUploadServlet extends HttpServlet {
                         //System.out.println("item.getFieldName() = " + item.getFieldName() +"---"+item.isFormField());
                         //System.out.println("item = " + item.getName());
                         if (!item.isFormField()){
-                            //获取文件名称
+                            //获取文件上传时的名称
                             String fileName = new File(item.getName()).getName();
+                            //文件使用随机名称,先获取扩展名
+                            String fileName_ = fileName.substring(fileName.lastIndexOf("."),fileName.length());
+                            String diskFileName = System.currentTimeMillis()+fileName_;
+
                             //文件存放路径
-                            String filePath = path + File.separator + fileName;
+                            //String filePath = path + File.separator + fileName;
+                            String filePath = path + File.separator + diskFileName;
                             //文件大小
                             long fileSize = item.getSize();
                             //创建文件
                             File file = new File(filePath);
                             //此处注意下：由于需要计算文件的md5，所以要先把文件写入到服务器，如果后续文件重复，再把该文件删除
-                            //TODO 可能存在文件名重复的问题,此处比较麻烦，暂不考虑
-                            //还有种解决办法：在前台计算md5
                             item.write(file);
                             //获取文件md5
                             String fileMD5 = FileUtil.getFileMd5(file);
                             //先判断是否重复上传,如果有，表示此用户已经上传过了;然后判断file表中是否有此文件，如果没有则add
                             FilesOfUserService filesOfUserService = new FilesOfUserService();
-                            if(!filesOfUserService.isHave(userName,fileName,fileMD5)){
+                            if(!filesOfUserService.isHave(userName,fileMD5)){
                                 //没有此文件
                                 FileService fileService = new FileService();
-                                int result = fileService.isHave(fileName,fileMD5);
+                                int result = fileService.isHave(fileMD5);
                                 if (result == 0){
                                     //表示file表没有此文件,先保存到服务器,然后插入file表
                                     //item.write(file);
-                                    int fileId = fileService.addFileRetId(fileName,fileMD5,filePath,fileSize);
+                                    int fileId = fileService.addFileRetId(diskFileName,fileMD5,filePath,fileSize);
                                     if (fileId != 0){
                                         //新增file成功,加入到file_user表
-                                        filesOfUserService.addFileUser(userName,fileId);
+                                        filesOfUserService.addFileUser(userName,fileId,fileName);
                                     }
                                 }else {
-                                    //file表已有此文件,result为fileid
-                                    filesOfUserService.addFileUser(userName,result);
+                                    //file表已有此文件,result为fileid,需先删除之前写进硬盘的文件
+                                    item.delete();
+                                    file.delete();
+                                    filesOfUserService.addFileUser(userName,result,fileName);
                                 }
 
                             }

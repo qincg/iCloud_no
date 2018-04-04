@@ -16,6 +16,7 @@
     用户名：<input type="text" id="userName" name="userName" placeholder="请输入用户名"/><br/>
     密码: <input type="password" id="password" name="password" placeholder="请输入密码"/><br/>
     <input type="submit" value="Sign in"/>
+    <input type="button" value="Sign up" onclick="window.location.href='<%=request.getContextPath()%>/signup.jsp'">
 </form>
 </body>
 
