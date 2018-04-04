@@ -50,10 +50,12 @@ public class FileUploadServlet extends HttpServlet {
 
         //检测form类型是否为多媒体
         if(ServletFileUpload.isMultipartContent(request)){
+            FileItem item1 = null;
             try{
                 List<FileItem> list = sfu.parseRequest(request);
                 if (list != null && list.size() > 0) {
                     for (FileItem item : list) {
+                        item1 = item;
                         //System.out.println("item.getFieldName() = " + item.getFieldName() +"---"+item.isFormField());
                         //System.out.println("item = " + item.getName());
                         if (!item.isFormField()){
@@ -92,9 +94,18 @@ public class FileUploadServlet extends HttpServlet {
                                     //file表已有此文件,result为fileid,需先删除之前写进硬盘的文件
                                     item.delete();
                                     file.delete();
+
                                     filesOfUserService.addFileUser(userName,result,fileName);
                                 }
 
+                            }else{
+                                //表示是同一用户重复上传
+                                //TODO 此处存在io流未关闭的问题，delete()失败
+                                item.delete();
+                                boolean var = file.delete();
+                                boolean var1 = file.exists();
+                                System.out.println("var1 = " + var1);
+                                System.out.println("var = " + var);
                             }
 
                         }

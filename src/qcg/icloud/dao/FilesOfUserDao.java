@@ -26,7 +26,7 @@ public class FilesOfUserDao {
      */
     public boolean addUserFile(String userName, int fileId,String fileName){
         Connection connection = JDBCUtil.getConn();
-        String sql = "insert into file_user(fileId,userName,fileName) values(?,?)";
+        String sql = "insert into file_user(fileId,userName,fileName) values(?,?,?)";
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{
@@ -150,7 +150,7 @@ public class FilesOfUserDao {
         if (connection != null) {
             try {
                 List<Object[]> list = qr.query(connection,sql,new ArrayListHandler(),fileId,userName);
-                if (list.size() >0){
+                if (list.size() == 1){
                     return true;
                 }else if (list.size() > 1){
                     System.out.println(" file_user重复插入了，请检查代码！！！");

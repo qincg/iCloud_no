@@ -38,7 +38,7 @@ public class LoginFilter implements Filter {
         if (lists.contains(urlPath)){
             String userName = (String)((HttpServletRequest) servletRequest).getSession().getAttribute("userName");
             if ("".equals(userName) || userName == null){
-                ((HttpServletResponse)servletResponse).sendRedirect("/index.jsp");
+                ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "/index.jsp");
                 return;
             }
         }

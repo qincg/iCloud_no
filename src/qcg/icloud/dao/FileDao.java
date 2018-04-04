@@ -49,7 +49,7 @@ public class FileDao {
      */
     public int addFileRetId(File file){
         Connection connection = JDBCUtil.getConn();
-        String sql = "insert into file(fileName,fileMD5,filePath,fileSize) values(?,?,?,?)";
+        String sql = "insert into file(diskFileName,fileMD5,filePath,fileSize) values(?,?,?,?)";
         String sqlId = "select last_insert_id()";
         QueryRunner qr = new QueryRunner();
         if (connection != null){
