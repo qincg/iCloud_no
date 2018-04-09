@@ -10,11 +10,12 @@ create table user(
 -- 用于存放文件数据
 create table file(
   id int primary key auto_increment,
-  fileName varchar(100),
+  diskFileName varchar(100),
   fileMD5 varchar(500),
-  path varchar(200)
+  filePath varchar(200)
 );
 create table file_user(
   fileId int,
-  userName varchar(10)
+  userName varchar(10),
+  fileName varchar(100)
 );

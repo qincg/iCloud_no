@@ -45,10 +45,20 @@ public class FileUtil {
         if (!file.exists() || !file.isFile()){
             return "";
         }
+        FileInputStream fis = null;
         try {
-            fileMD5 = DigestUtils.md5Hex(new FileInputStream(file));
+            fis = new FileInputStream(file);
+            fileMD5 = DigestUtils.md5Hex(fis);
         }catch (IOException e){
             e.printStackTrace();
+        }finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
         return fileMD5;
     }

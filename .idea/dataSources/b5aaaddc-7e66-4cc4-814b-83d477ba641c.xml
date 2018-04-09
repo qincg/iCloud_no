@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="iCloud@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.7">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.8">
     <root id="1">
+      <ServerVersion>5.1.46</ServerVersion>
       <DefaultCasing>lower/lower</DefaultCasing>
     </root>
     <schema id="2" parent="1" name="cloudoa">
@@ -569,7 +570,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="146" parent="142" name="fileName">
+    <column id="146" parent="142" name="diskFileName">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -604,24 +605,29 @@
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="153" parent="144" name="id">
+    <column id="153" parent="143" name="fileName">
+      <Position>3</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="154" parent="144" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="154" parent="144" name="userName">
+    <column id="155" parent="144" name="userName">
       <Position>2</Position>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="155" parent="144" name="password">
+    <column id="156" parent="144" name="password">
       <Position>3</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="156" parent="144" name="PRIMARY">
+    <key id="157" parent="144" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
