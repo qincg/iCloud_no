@@ -26,7 +26,7 @@ public class FileUtil {
      * @return 返回创建的路径
      */
     public static String createUserFilePath(String userName) {
-        String path = CONTEXT_PATH.substring(0,CONTEXT_PATH.lastIndexOf("WEB-INF")) + "userFile" + File.separator + userName;
+        String path = CONTEXT_PATH.substring(0,CONTEXT_PATH.lastIndexOf("WEB-INF")) + PATH + File.separator + userName;
         File file = new File(path);
         if (!file.exists()){
             file.mkdirs();

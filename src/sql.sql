@@ -14,8 +14,10 @@ create table file(
   fileMD5 varchar(500),
   filePath varchar(200)
 );
+-- 用户拥有的文件
 create table file_user(
   fileId int,
   userName varchar(10),
-  fileName varchar(100)
+  fileName varchar(100),
+  isShare tinyint(1) unsigned default 0
 );

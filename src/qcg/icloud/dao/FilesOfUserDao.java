@@ -120,7 +120,7 @@ public class FilesOfUserDao {
     public List<Object[]> queryFiles(String userName){
         List<Object[]> list = new ArrayList<Object[]>();
         Connection connection = JDBCUtil.getConn();
-        String sql = "select f.id,fu.fileName,f.fileSize from file f,file_user fu where fu.fileId = f.id and fu.userName = ?";
+        String sql = "select f.id,fu.fileName,f.fileSize,fu.isShare from file f,file_user fu where fu.fileId = f.id and fu.userName = ?";
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{

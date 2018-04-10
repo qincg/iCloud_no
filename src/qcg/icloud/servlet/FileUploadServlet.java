@@ -55,7 +55,6 @@ public class FileUploadServlet extends HttpServlet {
                 List<FileItem> list = sfu.parseRequest(request);
                 if (list != null && list.size() > 0) {
                     for (FileItem item : list) {
-                        item1 = item;
                         //System.out.println("item.getFieldName() = " + item.getFieldName() +"---"+item.isFormField());
                         //System.out.println("item = " + item.getName());
                         if (!item.isFormField()){
@@ -100,20 +99,16 @@ public class FileUploadServlet extends HttpServlet {
 
                             }else{
                                 //表示是同一用户重复上传
-                                //TODO 此处存在io流未关闭的问题，delete()失败
                                 item.delete();
-                                boolean var = file.delete();
-                                boolean var1 = file.exists();
-                                System.out.println("var1 = " + var1);
-                                System.out.println("var = " + var);
-                            }
+                                file.delete();
 
+                            }
                         }
-                        response.sendRedirect(request.getContextPath() + "/filesOfUserServlet");
 
                     }
 
                 }
+                response.sendRedirect(request.getContextPath() + "/filesOfUserServlet");
             }catch (FileUploadException e){
                 e.printStackTrace();
             }catch (Exception e){
