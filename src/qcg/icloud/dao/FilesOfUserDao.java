@@ -58,7 +58,7 @@ public class FilesOfUserDao {
         QueryRunner qr = new QueryRunner();
         if (connection != null) {
             try{
-                int result = qr.update(connection,sql,userName,fileId);
+                int result = qr.update(connection,sql,fileId,userName);
                 if (result == 1){
                     return true;
                 }else if (result > 1){
@@ -154,6 +154,42 @@ public class FilesOfUserDao {
                     return true;
                 }else if (list.size() > 1){
                     System.out.println(" file_user重复插入了，请检查代码！！！");
+                    return false;
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }finally {
+                DbUtils.closeQuietly(connection);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 更新文件共享状态
+     * @param userName
+     * @param fileId
+     * @param isShare
+     * @return
+     */
+    public boolean updateShare(String userName,int fileId,boolean isShare){
+        Connection connection = JDBCUtil.getConn();
+        String sql = "update file_user set isShare = ? where userName = ? and fileId = ?";
+        QueryRunner qr = new QueryRunner();
+        int isShareI;
+        if (isShare){
+            isShareI = 0;
+        }else {
+            isShareI = 1;
+        }
+        if (connection != null){
+            try {
+                //int result = qr.execute(connection,sql,isShareI,userName,fileId);
+                int result = qr.update(connection, sql, isShareI,userName,fileId);
+                if (result == 1){
+                    return true;
+                }else if(result > 1){
+                    System.out.println(" 删除file_user表两条数据，请检查代码");
                     return false;
                 }
             }catch (SQLException e){

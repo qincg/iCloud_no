@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" charset="UTF-8" content="text/html">
-    <script src="<%=request.getContextPath()%>/js/myfiles.js" type="text/javascript"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.8.2.min.js"></script>
     <title>我的文件</title>
 </head>
 <%
@@ -43,10 +43,11 @@
             <%
                 long size = Long.parseLong((String)fileList.get(i)[2]);
                 String fileName = (String)fileList.get(i)[1];
+                int id = Integer.parseInt(fileList.get(i)[0].toString());
             %>
             <td><%=fileName%></td>
             <td><%=FileUtil.sizeType(size)%></td>
-            <td>
+            <td id = "isShare<%=id%>">
                 <%
                     boolean isShare = Boolean.parseBoolean(fileList.get(i)[3].toString());
                     String shareVal;
@@ -59,11 +60,8 @@
                 <%=shareVal%>
             </td>
             <td>
-                <%
-                    int id = Integer.parseInt(fileList.get(i)[0].toString());
-                %>
-                <input type="button" value="变更共享" id="change<%=id%>" onclick="changegx(this)">
-                <input type="button" value="删除" id="delete<%=id%>" onclick="deletewj(this)">
+                <input type="button" value="变更共享" id="change<%=id%>" onclick="changegx(<%=id%>,<%=isShare%>)">
+                <input type="button" value="删除" id="delete<%=id%>" onclick="deletewj(<%=id%>)">
             </td>
         </tr>
      <%
@@ -77,4 +75,42 @@
 </table>
 共<%=fileCount%>条记录
 </body>
+<script>
+    function changegx(e,e1) {
+        var temp = {};
+        temp.fileId = e;
+        temp.isShare = e1;
+        $.ajax({
+           url:'<%=request.getContextPath()%>/update',
+           type:"post",
+           data:{
+               "temp":JSON.stringify(temp)
+           },
+            success:function(data,status){
+               if(data.status == 1){
+                   alert(data.msg);
+                   //$("#isShare + e").html(!e1);
+                   //console.log($("#isShare + e").html());
+                   location.reload();
+               }
+            }
+        });
+    }
+    function deletewj(e) {
+        $.ajax({
+            url:'<%=request.getContextPath()%>/delete',
+            type:"post",
+            data:{
+                fileId:e,
+            },
+            dataType:'json',
+            success:function(data,status){
+                if (data.status == 1){
+                    alert(data.msg);
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>
 </html>

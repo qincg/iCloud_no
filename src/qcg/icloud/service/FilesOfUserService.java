@@ -60,4 +60,15 @@ public class FilesOfUserService {
     public void delFilesUser(String userName,int[] fileIds){
         filesOfUserDao.delUserFiles(userName,fileIds);
     }
+
+    /**
+     * 更新文件是否共享
+     * @param userName
+     * @param fileId
+     * @param isShare
+     * @return
+     */
+    public boolean updateShare(String userName,int fileId,boolean isShare){
+        return filesOfUserDao.updateShare(userName,fileId,isShare);
+    }
 }

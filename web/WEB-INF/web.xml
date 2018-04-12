@@ -63,4 +63,23 @@
         <servlet-name>filesOfUserServlet</servlet-name>
         <url-pattern>/filesOfUserServlet</url-pattern>
     </servlet-mapping>
+    <!--删除文件-->
+    <servlet>
+        <servlet-name>delete</servlet-name>
+        <servlet-class>qcg.icloud.servlet.DelFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    
+    <!--更新文件-->
+    <servlet>
+        <servlet-name>update</servlet-name>
+        <servlet-class>qcg.icloud.servlet.ChangeFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>update</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
 </web-app>
